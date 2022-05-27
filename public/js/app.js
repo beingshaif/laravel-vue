@@ -5278,8 +5278,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     itemTitle: String,
-    itemContent: String,
-    price: Number
+    itemContent: String
   }
 });
 
@@ -5297,8 +5296,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _BookableListItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BookableListItem */ "./resources/js/bookables/BookableListItem.vue");
-//
-//
 //
 //
 //
@@ -5371,30 +5368,10 @@ __webpack_require__.r(__webpack_exports__);
       return console.log("Error ".concat(result));
     });
     console.log(p);
-    setTimeout(function () {
-      _this.loading = true;
-      _this.bookables = [{
-        title: "Cheap Villa..",
-        content: "A budget friendly villa",
-        price: 150000
-      }, {
-        title: "Costly Villa 1",
-        content: "A rich friendly villa",
-        price: 2000000
-      }, {
-        title: "Costly Villa 2",
-        content: "A rich friendly villa",
-        price: 2000000
-      }, {
-        title: "Costly Villa 3",
-        content: "A rich friendly villa",
-        price: 2000000
-      }, {
-        title: "Costly Villa 4",
-        content: "A rich friendly villa",
-        price: 2000000
-      }];
-    }, 2000);
+    var request = axios.get("/api/bookables").then(function (response) {
+      _this.bookables = response.data;
+      _this.loading = false;
+    });
   }
 });
 
@@ -28351,10 +28328,7 @@ var render = function () {
     _c("div", { staticClass: "card-body" }, [
       _c("h5", { staticClass: "card-title" }, [_vm._v(_vm._s(_vm.itemTitle))]),
       _vm._v(" "),
-      _c("p", [
-        _vm._v(_vm._s(_vm.itemContent) + ", "),
-        _c("small", [_vm._v(_vm._s(_vm.price))]),
-      ]),
+      _c("p", [_vm._v(_vm._s(_vm.itemContent))]),
     ]),
   ])
 }
@@ -28383,7 +28357,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", [
     _vm._v("\n  Rows is: " + _vm._s(_vm.rows) + "\n  "),
-    !_vm.loading
+    _vm.loading
       ? _c("div", [_vm._m(0)])
       : _c(
           "div",
@@ -28400,8 +28374,7 @@ var render = function () {
                       _c("bookable-list-item", {
                         attrs: {
                           "item-title": bookable.title,
-                          "item-content": bookable.content,
-                          price: bookable.price,
+                          "item-content": bookable.description,
                         },
                       }),
                     ],

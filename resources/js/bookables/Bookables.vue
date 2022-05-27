@@ -1,7 +1,7 @@
 <template>
   <div>
     Rows is: {{ rows }}
-    <div v-if="loading">
+    <div v-if="!loading">
       <div class="card mb-4">
         <div class="card-body">Data is Loading......</div>
       </div>
@@ -9,14 +9,11 @@
     <div v-else>
       <div class="row mb-4" v-for="row in rows" :key="'row' + row">
         <div
-          class="col"
+          class="col d-flex align-items-stretch"
           v-for="(bookable, column) in bookablesInRow(row)"
           :key="'row' + row + column"
         >
-          <bookable-list-item
-            :item-title="bookable.title"
-            :item-content="bookable.description"
-          ></bookable-list-item>
+          <bookable-list-item v-bind="bookable"></bookable-list-item>
         </div>
         <div
           class="col"
@@ -70,9 +67,10 @@ export default {
       .catch((result) => console.log(`Error ${result}`));
     console.log(p);
 
-    const request = axios.get("/api/bookables").then(response => {
+    const request = axios.get("/api/bookables").then((response) => {
       this.bookables = response.data;
-      this.loading = false;
+      this.bookables.push({ title: "TItle", description: "Lorem Ipsum" });
+      this.loading = true;
     });
   },
 };

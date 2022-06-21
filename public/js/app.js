@@ -5289,7 +5289,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios.get("api/bookables/".concat(this.$route.params.id)).then(function (response) {
+    axios.get("/api/bookables/".concat(this.$route.params.id)).then(function (response) {
       _this.bookable = response.data;
     });
   }

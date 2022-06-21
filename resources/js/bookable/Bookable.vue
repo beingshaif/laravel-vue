@@ -20,7 +20,7 @@ export default {
     };
   },
   created() {
-    axios.get(`api/bookables/${this.$route.params.id}`).then((response) => {
+    axios.get(`/api/bookables/${this.$route.params.id}`).then((response) => {
       this.bookable = response.data;
     });
   },
